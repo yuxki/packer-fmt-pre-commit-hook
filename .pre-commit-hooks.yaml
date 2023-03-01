@@ -1,6 +1,6 @@
 - id: packer-fmt
   name: packer-fmt
   description: "Format Packer configuration with 'packer fmt' command."
-  entry: packer fmt
+  entry: hooks/packer-fmt
   language: script
   files: (\.pkr\.hcl)$
