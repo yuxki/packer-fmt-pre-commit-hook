@@ -1,4 +1,4 @@
-packer {
+  packer {
   required_plugins {
     openstack = {
       version = ""
@@ -7,6 +7,6 @@ packer {
   }
 }
 
-variable "test" {
+  variable "test" {
   type = string
 }
