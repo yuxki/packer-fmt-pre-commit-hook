@@ -14,12 +14,12 @@ jobs:
             sha256sum -c packer_1.8.6_linux_amd64.zip_SHA256SUMS
             unzip packer_1.8.6_linux_amd64.zip
             mv packer /usr/bin/packer
+      - checkout
       - run:
           name: Install requirements
           command: |
-            python -m pip install -r requirements/dev.txt
+            python -m pip install -r ./requirements/dev.txt
             pre-commit install
-      - checkout
       - run:
           name: Run Unit Tests
           command: |
