@@ -29,6 +29,7 @@ jobs:
           command: |
             cd tests
             pre-commit try-repo ../ packer-fmt --verbose --all-files > result
+            cat result
             grep -q -F "files were modified by this hook" result
             grep -q -F "tests/bad.pkr.hcl" result
             grep -q -v -F "tests/ok.pkr.hcl" result
