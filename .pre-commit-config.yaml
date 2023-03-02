@@ -1,0 +1,13 @@
+---
+repos:
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: shellcheck
+      - id: shfmt
+        args: ['-l', '-w', '-i', '2', '-bn', '-ci', '-sr']
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.29.0
+    hooks:
+      - id: yamllint

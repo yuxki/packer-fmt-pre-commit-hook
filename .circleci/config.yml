@@ -1,0 +1,33 @@
+---
+version: 2.1
+jobs:
+  Unit-Test:
+    docker:
+      - image: python:3.8.16-alpine
+    steps:
+      - run:
+          name: Download & verify the packer binary
+          command: |
+            wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_linux_amd64.zip
+            wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_SHA256SUM
+            grep -F 'packer_1.8.6_linux_amd64.zip' packer_1.8.6_SHA256SUMS > packer_1.8.6_linux_amd64.zip_SHA256SUMS
+            sha256sum -c packer_1.8.6_linux_amd64.zip_SHA256SUMS
+            mv packer /usr/bin/packer
+      - run:
+          name: Install requirements
+          command: |
+            python -m pip install -r requirements/dev.txt
+            pre-commit install
+      - checkout
+      - run:
+          name: Run Unit Tests
+          command: |
+            cd tests
+            pre-commit try-repo ../ packer-fmt --verbose --all-files > result
+            grep -q -F "files were modified by this hook" result
+            grep -q -F "tests/bad.pkr.hcl" result
+            grep -q -v -F "tests/ok.pkr.hcl" result
+workflows:
+  unit_test:
+    jobs:
+      - Unit-Test
