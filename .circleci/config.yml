@@ -12,6 +12,7 @@ jobs:
             wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_SHA256SUMS
             grep -F 'packer_1.8.6_linux_amd64.zip' packer_1.8.6_SHA256SUMS > packer_1.8.6_linux_amd64.zip_SHA256SUMS
             sha256sum -c packer_1.8.6_linux_amd64.zip_SHA256SUMS
+            unzip packer_1.8.6_linux_amd64.zip
             mv packer /usr/bin/packer
       - run:
           name: Install requirements
