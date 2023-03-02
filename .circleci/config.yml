@@ -27,7 +27,9 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
+            set +o pipefail
             pre-commit try-repo . packer-fmt --verbose --all-files | tee ./tests/result
+            set -eo pipefail
             grep -q -F "files were modified by this hook" ./tests/result
             grep -q -F "tests/bad.pkr.hcl" ./tests/result
             grep -q -v -F "tests/ok.pkr.hcl" ./tests/result
