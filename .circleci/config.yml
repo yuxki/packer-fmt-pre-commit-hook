@@ -6,6 +6,11 @@ jobs:
       - image: python:3.8.16-alpine
     steps:
       - run:
+          name: Install git
+          command: |
+            apk add git
+      - checkout
+      - run:
           name: Download & verify the packer binary
           command: |
             wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_linux_amd64.zip
@@ -14,11 +19,6 @@ jobs:
             sha256sum -c packer_1.8.6_linux_amd64.zip_SHA256SUMS
             unzip packer_1.8.6_linux_amd64.zip
             mv packer /usr/bin/packer
-      - run:
-          name: Install git
-          command: |
-            apk add git
-      - checkout
       - run:
           name: Install requirements
           command: |
