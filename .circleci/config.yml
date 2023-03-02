@@ -6,9 +6,9 @@ jobs:
       - image: python:3.8.16-alpine
     steps:
       - run:
-          name: Install git
+          name: Install git and grep
           command: |
-            apk add git
+            apk add git grep
       - checkout
       - run:
           name: Download & verify the packer binary
